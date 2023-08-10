@@ -1,0 +1,4 @@
+1. input verification
+2. set up consumer instances to send data to
+3. get uids from LDAP
+4. make it look nice

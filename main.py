@@ -73,6 +73,8 @@ async def error():
 async def public(request: Request):
     user = request.session.get('user')
     show_auth = user is None
+    if user is not None:
+        return RedirectResponse(url='/success')
     return templates.TemplateResponse('home.html', {'request': request, 'show_auth': show_auth})
 
 @app.post('/submit')

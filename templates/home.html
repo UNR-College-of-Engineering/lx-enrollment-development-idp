@@ -22,11 +22,9 @@
                 <input type="text" id="username" name="username" required>
                 <button type="submit">Submit</button>
             </form>
-            <pre>
-                {% if complete == False %}
-                    <p>You must authenticate and enter a username!</p>
-                {% endif %}
-            </pre>
+            {% if complete == False %}
+                <p>You must authenticate and enter a username!</p>
+            {% endif %}
         </div>
     </body>
 </html>
