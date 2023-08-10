@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', path='/styles/home.css') }}">
+        <meta charset="UTF-8">
+        <link rel="icon"href="{{ url_for('static', path='favicon.png') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <title>LX Enrollment</title>
+    </head>
+    <body>
+        <div>
+            <h1>Request a development instance</h1>
+            {% if show_auth %}
+                <a href="/login">Authenticate with Google</a>
+            {% else %}
+                <p>You have been authenticated!</p>
+            {% endif %}
+            <form action="/submit" method="post">
+                <label for="username">Enter NetID:</label>
+                <input type="text" id="username" name="username" required>
+                <button type="submit">Submit</button>
+            </form>
+            <pre>
+                {% if complete == False %}
+                    <p>You must authenticate and enter a username!</p>
+                {% endif %}
+            </pre>
+        </div>
+    </body>
+</html>
