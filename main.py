@@ -89,4 +89,4 @@ async def public(request: Request, username: Annotated[str, Form()]):
         return templates.TemplateResponse('home.html', {'request': request, 'username': username, 'complete': complete, 'show_auth': show_auth})
 
 if __name__ == '__main__':
-    uvicorn.run('main:app', host='127.0.0.1', port=8000)
+    uvicorn.run('main:app', host='127.0.0.1', port=8000, reload=True)

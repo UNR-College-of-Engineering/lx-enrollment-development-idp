@@ -7,24 +7,111 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <title>LX Enrollment</title>
     </head>
     <body>
-        <div>
-            <h1>Request a development instance</h1>
-            {% if show_auth %}
-                <a href="/login">Authenticate with Google</a>
-            {% else %}
-                <p>You have been authenticated!</p>
-            {% endif %}
-            <form action="/submit" method="post">
-                <label for="username">Enter NetID:</label>
-                <input type="text" id="username" name="username" required>
-                <button type="submit">Submit</button>
-            </form>
-            {% if complete == False %}
-                <p>You must authenticate and enter a username!</p>
-            {% endif %}
+        <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand">
+                    <img src="{{ url_for('static', path='favicon.png') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    ECC LX Enrollment
+                </a>
+            </div>
+        </nav>
+        <div class="parent-horizontal">
+            <div class="div1-horiz"></div>
+            <div class="div2-horiz">
+                <h1>Request a development instance</h1>
+                <div class="parent-vertical">
+                    <div class="div1-vert">
+                        {% if show_auth %}
+                            <a class="auth" href="/login">Please authenticate with Google</a>
+                        {% else %}
+                            <p>You have been authenticated!</p>
+                        {% endif %}
+                    </div>
+                    <form action="/submit" method="post">
+                        <div class="div2-vert">
+                            <!-- <label for="username">Enter NetID:</label> -->
+                            <strong>Enter NetID:</strong>
+                        </div>
+                        <div class="div3-vert">
+                            <input type="text" id="username" name="username" required onchange="">
+                        </div>
+                        <div class="div4-vert">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Username Requirements</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>No Special Characters</td>
+                                        <td>
+                                            <span class="badge bg-danger">x</span>
+                                            <span class="badge bg-success">✓</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Can Not Contain A Space</td>
+                                        <td>
+                                            <span class="badge bg-danger">x</span>
+                                            <span class="badge bg-success">✓</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Has to be at least 3 letters</td>
+                                        <td>
+                                            <span class="badge bg-danger">x</span>
+                                            <span class="badge bg-success">✓</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Must Be Unique</td>
+                                        <td>
+                                            <span class="badge bg-danger">x</span>
+                                            <span class="badge bg-success">✓</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="div5-vert">
+                            <strong>Why are you requesting access?</strong>
+                            <select id="purpose" class="form-select" style="background-color: #808386;">
+                                <option value="course">Course</option>
+                                <option value="research">Research</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="div6-vert">
+                            <strong>What operating system would you like to use?</strong>
+                            <select id="os" class="form-select" style="background-color: #808386;">
+                                <option value="default">Ubuntu (Default)</option>
+                                <option value="kali">Kali Linux</option>
+                            </select>
+                            <small>Kali is only recommended for people in cybersecurity courses</small>
+                        </div>
+                        <div class="div7-vert">
+                            <button type="submit" class="submit">Submit</button>
+                        </div>
+                    </form>
+                    {% if complete == False %}
+                        <p>You must authenticate and enter a username!</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="div3-horiz"></div>
+        </div>
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-4 my-5 border-top">
+                <div class="col-md-5 d-flex align-items-center">
+                    <p>Questions? Email ehelp@engr.unr.edu</p>
+                </div>
+            </footer>
         </div>
     </body>
 </html>
