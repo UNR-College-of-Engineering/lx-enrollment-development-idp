@@ -46,8 +46,8 @@ body {
     margin-top: 4vh;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr, 1fr, 2fr, 1fr;
-    row-gap: 1vh;
+    /* grid-template-rows: 1fr 1fr 1fr; */
+    row-gap: 2vh;
 }
 .div1-vert {
     grid-area: 1 / 1 / 2 / 2;

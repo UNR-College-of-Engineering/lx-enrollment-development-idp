@@ -10,6 +10,7 @@ app = FastAPI()
 from starlette.config import Config
 from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.middleware.sessions import SessionMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from authlib.integrations.starlette_client import OAuth, OAuthError
 
 import database as db
@@ -24,15 +25,35 @@ app.mount('/static', StaticFiles(directory='static'), name='static')
 
 logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 
-app.add_middleware(SessionMiddleware, secret_key='!secret')
+app.add_middleware(SessionMiddleware, secret_key='tHiSiSasEcRetStr!@!s')
 
-config = Config('google.env')
+origins = [
+    "http://localhost:8000",
+    "http://localhost:8000/*",
+    "http://127.0.0.1:8000/*",
+    "http://127.0.0.1:8000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+from config import settings
+
+config = Config('keycloak.env')
 oauth = OAuth(config)
 
 # Google
-CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+# CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+CONF_URL = 'https://idp.nevada.dev/realms/NSHE/.well-known/openid-configuration'
 oauth.register(
-    name='google',
+    name='keycloak',
+    client_id=settings.CLIENT_ID,
+    client_secret=settings.CLIENT_SECRET.get_secret_value(),
     server_metadata_url=CONF_URL,
     client_kwargs={
         'scope': 'openid profile email',
@@ -40,18 +61,19 @@ oauth.register(
 )
 
 show_auth = True
+selected_class = ""
 
 @app.route('/login')
 async def login(request: Request):
     redirect_uri = request.url_for('auth')
-    return await oauth.google.authorize_redirect(request, redirect_uri)
+    return await oauth.keycloak.authorize_redirect(request, redirect_uri)
 
 @app.route('/auth')
 async def auth(request: Request):
     try:
-        token = await oauth.google.authorize_access_token(request)
+        token = await oauth.keycloak.authorize_access_token(request)
     except OAuthError as error:
-        return templates.TemplateResponse('error.html', {'request': request, 'error': error.error})
+        return templates.TemplateResponse('error.html', {'request': request, 'error': error})
     user = token.get('userinfo')
     if user:
         request.session['user'] = dict(user)
@@ -73,7 +95,7 @@ async def error():
 async def public(request: Request):
     user = request.session.get('user')
     show_auth = user is None
-    if user is not None:
+    if user is not None and selected_class != "":
         return RedirectResponse(url='/success')
     return templates.TemplateResponse('home.html', {'request': request, 'show_auth': show_auth})
 
