@@ -3,21 +3,21 @@ import sqlite3
 conn = sqlite3.connect('database.db')
 c=conn.cursor()
 
-c.execute("""CREATE TABLE IF NOT EXISTS users (sub CHAR[21],username VARCHAR[255])""")
+c.execute("""CREATE TABLE IF NOT EXISTS users (preffered_username VARCHAR[255],chosenclass VARCHAR[255])""")
 conn.commit()
 
-def insertUser(sub, username):
-    if checkUser(sub, username):
+def insertUser(username, classname):
+    if checkUser(username):
         return False
-    c.execute("""insert into users values (?,?)""",(sub,username))
+    c.execute("""insert into users values (?,?)""",(username, classname))
     conn.commit()
     print("User added")
     return True
 
-def checkUser(sub, username):
+def checkUser(username):
     all = c.execute("""select * from users""").fetchall()
     for entry in all:
-        if sub in entry and username in entry:
+        if username in entry:
             print("User already exists")
             return True
     return False

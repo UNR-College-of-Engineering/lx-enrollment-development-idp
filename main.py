@@ -47,8 +47,6 @@ from config import settings
 config = Config('keycloak.env')
 oauth = OAuth(config)
 
-# Google
-# CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 CONF_URL = 'https://idp.nevada.dev/realms/NSHE/.well-known/openid-configuration'
 oauth.register(
     name='keycloak',
@@ -56,7 +54,7 @@ oauth.register(
     client_secret=settings.CLIENT_SECRET.get_secret_value(),
     server_metadata_url=CONF_URL,
     client_kwargs={
-        'scope': 'openid profile email',
+        'scope': 'profile email',
     }
 )
 
@@ -105,8 +103,12 @@ async def public(request: Request, selected_class: Annotated[str, Form()]):
 
     complete = selected_class != "" and user is not None
     if complete:
-        db.insertUser(str(user['sub']), str(selected_class))
-        return templates.TemplateResponse('success.html', {'request': request, 'user': user})
+        inserted = db.insertUser(str(user['preferred_username']), str(selected_class))
+        if inserted:
+            return templates.TemplateResponse('success.html', {'request': request, 'user': user})
+        else:
+            already = True
+            return templates.TemplateResponse('success.html', {'request': request, 'user': user, 'already': already})
     else:
         return templates.TemplateResponse('home.html', {'request': request, 'selected_class': selected_class, 'complete': complete, 'show_auth': show_auth})
 

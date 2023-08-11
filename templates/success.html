@@ -11,7 +11,7 @@
     </head>
     <body>
         <div>
-            <h1>{{ user['given_name'] }}, Your Request is Being Processed!</h1>
+            <h1>{{ user['given_name'] }}, Your Request is {% if already %} Already {% endif %} Being Processed!</h1>
             <!-- <img src="{{ user['picture'] }}" alt="Profile Picture"> -->
             <!-- <pre>
                 {% for k, v in user.items() %}
@@ -21,11 +21,9 @@
             <p>
                 You will be emailed when your request is approved.
             </p>
-
-            <!-- <pre>
-                {{ username }}
+            <!-- <small>
                 {{ user }}
-            </pre> -->
+            </small> -->
         </div>
     </body>
 </html>
