@@ -14,32 +14,18 @@ body {
     border: 1px solid #0d6efd;
 }
 .auth:hover {
-    background-color: #0d6efd;
-    color: white;
+    background-color: #0a58ca;
+    color: #9ec5fe;
     text-decoration: none;
     border-radius: 5px;
-    border: 1px solid #0d6efd;
-}
-.auth:active {
-    background-color: #0d6efd;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    border: 1px solid #0d6efd;
-}
-.auth:focus {
-    background-color: #0d6efd;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    border: 1px solid #0d6efd;
+    border: 1px solid #9ec5fe;
 }
 .parent-horizontal {
     display: grid;
-    /* grid-template-columns: 2fr, 1fr, 2fr; */
     grid-template-columns: 30vw 40vw 30vw;
+    align-items: center;
+    height: 70vh;
     grid-template-rows: 1fr;
-    margin-top: 2vh;
 }
 @media screen and (max-width: 768px) {
     .parent-horizontal {
@@ -74,36 +60,6 @@ body {
     margin-top: 1vh;
     grid-area: 3 / 1 / 4 / 2;
 }
-.div4-vert {
-    margin-top: 2vh;
-    grid-area: 4 / 1 / 5 / 2;
-}
-.div5-vert{
-    margin-top: 2vh;
-    grid-area: 5 / 1 / 6 / 2;
-}
-.div6-vert{
-    margin-top: 2vh;
-    grid-area: 6 / 1 / 7 / 2;
-}
-.div7-vert{
-    margin-top: 2vh;
-    grid-area: 7 / 1 / 8 / 2;
-}
-input{
-    border: 3px solid #808386;
-    border-radius: 3px;
-    width: 100%;
-    background-color: #808386;
-    transition: 200ms ease-in-out;
-    color: white !important;
-}
-input:focus {
-    outline: none;
-    border: 3px solid #0d6efd;
-    border-radius: 3px;
-    transition: 200ms ease-in-out;
-}
 button[type=submit] {
     margin-top: 10px;
     border: 3px solid #0d6efd;
@@ -116,26 +72,10 @@ button[type=submit] {
 footer {
     width: 100%;
 }
-table {
-    width: 100%;
-    margin-top: 1vh;
-    border-collapse: collapse;
-}
-td {
-    padding-top: 10px;
-    text-align: end;
-}
-td:first-child {
-    padding: 0;
-    text-align: start;
-}
 strong {
     margin-bottom: 2px;
 }
 select {
     margin-top: 2px;
     color: white !important;
-}
-.smooth {
-    transition: 200ms ease-in-out !important;
 }

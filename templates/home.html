@@ -26,78 +26,21 @@
                 <div class="parent-vertical">
                     <div class="div1-vert">
                         {% if show_auth %}
-                            <a class="auth" href="/login">Please authenticate with Google</a>
+                            <a class="auth" href="/login">Please authenticate with IDP</a>
                         {% else %}
                             <p>You have been authenticated!</p>
                         {% endif %}
                     </div>
-                    <form action="/submit" autocomplete="off" method="post">
+                    <form action="/submit" method="post">
                         <div class="div2-vert">
-                            <!-- <label for="username">Enter NetID:</label> -->
-                            <strong>Enter Preffered Username:</strong>
+                            <strong>Select Your Course:</strong>
+                            <select id="class" class="form-select" name="selected_class" style="background-color: #808386;">
+                                <option value="none"></option>
+                                <option value="cs135">CS 135</option>
+                                <option value="cs202">CS 202</option>
+                            </select>
                         </div>
                         <div class="div3-vert">
-                            <input type="text" id="username" name="username" required onkeyup="validateForm()" onchange="checkUnique()">
-                        </div>
-                        <div class="div4-vert">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Username Requirements</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>No special characters</td>
-                                        <td>
-                                            <span id="special" class="badge bg-success">&nbsp;</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Can not start with a number</td>
-                                        <td>
-                                            <span id="startnum" class="badge bg-success">&nbsp;</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Can not contain a space</td>
-                                        <td>
-                                            <span id="space" class="badge bg-success">&nbsp;</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Has to be at least 3 letters</td>
-                                        <td>
-                                            <span id="len3" class="badge bg-danger">&nbsp;</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Must be unique</td>
-                                        <td>
-                                            <span id="uniq" class="badge bg-danger">&nbsp;</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="div5-vert">
-                            <strong>Why are you requesting access?</strong>
-                            <select id="purpose" class="form-select" style="background-color: #808386;">
-                                <option value="course">Course</option>
-                                <option value="research">Research</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="div6-vert">
-                            <strong>What operating system would you like to use?</strong>
-                            <select id="os" class="form-select" style="background-color: #808386;">
-                                <option value="default">Ubuntu (Default)</option>
-                                <option value="kali">Kali Linux</option>
-                            </select>
-                            <small>Kali is only recommended for people in cybersecurity courses</small>
-                        </div>
-                        <div class="div7-vert">
                             <button type="submit" class="submit">Submit</button>
                         </div>
                     </form>

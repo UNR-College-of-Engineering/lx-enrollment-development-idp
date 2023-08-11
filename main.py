@@ -78,15 +78,15 @@ async def public(request: Request):
     return templates.TemplateResponse('home.html', {'request': request, 'show_auth': show_auth})
 
 @app.post('/submit')
-async def public(request: Request, username: Annotated[str, Form()]):
+async def public(request: Request, selected_class: Annotated[str, Form()]):
     user = request.session.get('user')
 
-    complete = username != "" and user is not None
+    complete = selected_class != "" and user is not None
     if complete:
-        db.insertUser(str(user['sub']), str(username))
+        db.insertUser(str(user['sub']), str(selected_class))
         return templates.TemplateResponse('success.html', {'request': request, 'user': user})
     else:
-        return templates.TemplateResponse('home.html', {'request': request, 'username': username, 'complete': complete, 'show_auth': show_auth})
+        return templates.TemplateResponse('home.html', {'request': request, 'selected_class': selected_class, 'complete': complete, 'show_auth': show_auth})
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='127.0.0.1', port=8000, reload=True)
