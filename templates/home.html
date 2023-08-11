@@ -31,13 +31,13 @@
                             <p>You have been authenticated!</p>
                         {% endif %}
                     </div>
-                    <form action="/submit" method="post">
+                    <form action="/submit" autocomplete="off" method="post">
                         <div class="div2-vert">
                             <!-- <label for="username">Enter NetID:</label> -->
-                            <strong>Enter NetID:</strong>
+                            <strong>Enter Preffered Username:</strong>
                         </div>
                         <div class="div3-vert">
-                            <input type="text" id="username" name="username" required onchange="">
+                            <input type="text" id="username" name="username" required onkeyup="validateForm()" onchange="checkUnique()">
                         </div>
                         <div class="div4-vert">
                             <table>
@@ -49,31 +49,33 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>No Special Characters</td>
+                                        <td>No special characters</td>
                                         <td>
-                                            <span class="badge bg-danger">x</span>
-                                            <span class="badge bg-success">✓</span>
+                                            <span id="special" class="badge bg-success">&nbsp;</span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Can Not Contain A Space</td>
+                                        <td>Can not start with a number</td>
                                         <td>
-                                            <span class="badge bg-danger">x</span>
-                                            <span class="badge bg-success">✓</span>
+                                            <span id="startnum" class="badge bg-success">&nbsp;</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Can not contain a space</td>
+                                        <td>
+                                            <span id="space" class="badge bg-success">&nbsp;</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Has to be at least 3 letters</td>
                                         <td>
-                                            <span class="badge bg-danger">x</span>
-                                            <span class="badge bg-success">✓</span>
+                                            <span id="len3" class="badge bg-danger">&nbsp;</span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Must Be Unique</td>
+                                        <td>Must be unique</td>
                                         <td>
-                                            <span class="badge bg-danger">x</span>
-                                            <span class="badge bg-success">✓</span>
+                                            <span id="uniq" class="badge bg-danger">&nbsp;</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -113,5 +115,6 @@
                 </div>
             </footer>
         </div>
+        <script src="{{ url_for('static', path='/scripts/home.js') }}"></script>
     </body>
 </html>

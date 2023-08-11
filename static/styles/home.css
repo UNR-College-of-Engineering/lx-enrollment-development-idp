@@ -41,6 +41,12 @@ body {
     grid-template-rows: 1fr;
     margin-top: 2vh;
 }
+@media screen and (max-width: 768px) {
+    .parent-horizontal {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0fr, 1fr, 0fr;
+    }
+}
 .div1-horiz {
     grid-area: 1 / 1 / 2 / 2;
 }
@@ -129,4 +135,7 @@ strong {
 select {
     margin-top: 2px;
     color: white !important;
+}
+.smooth {
+    transition: 200ms ease-in-out !important;
 }
