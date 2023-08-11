@@ -25,7 +25,9 @@ app.mount('/static', StaticFiles(directory='static'), name='static')
 
 logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 
-app.add_middleware(SessionMiddleware, secret_key='tHiSiSasEcRetStr!@!s')
+from config import settings
+
+app.add_middleware(SessionMiddleware, secret_key=settings.MIDDLEWARE_SECRET)
 
 origins = [
     "http://localhost:8000",
@@ -41,8 +43,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-from config import settings
 
 config = Config('keycloak.env')
 oauth = OAuth(config)
