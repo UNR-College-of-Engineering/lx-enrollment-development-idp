@@ -34,7 +34,7 @@
                     <form action="/submit" method="post">
                         <div class="div2-vert">
                             <strong>Select Your Course:</strong>
-                            <select id="class" class="form-select" name="selected_class" style="background-color: #808386;">
+                            <select id="selected_class" class="form-select" name="selected_class" style="background-color: #808386;">
                                 <option value="none"></option>
                                 <option value="cs135">CS 135</option>
                                 <option value="cs202">CS 202</option>
@@ -45,7 +45,7 @@
                         </div>
                     </form>
                     {% if complete == False %}
-                        <p>You must authenticate and enter a username!</p>
+                        <p>You must authenticate and select a course!</p>
                     {% endif %}
                 </div>
             </div>
@@ -61,6 +61,5 @@
                 {{ user }}
             </p>
         </div>
-        <script src="{{ url_for('static', path='/scripts/home.js') }}"></script>
     </body>
 </html>

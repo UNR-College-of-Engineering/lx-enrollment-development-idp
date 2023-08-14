@@ -27,7 +27,8 @@ logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
 
 from config import settings
 
-app.add_middleware(SessionMiddleware, secret_key=settings.MIDDLEWARE_SECRET)
+# app.add_middleware(SessionMiddleware, secret_key=settings.MIDDLEWARE_SECRET)
+app.add_middleware(SessionMiddleware, secret_key="secret")
 
 origins = [
     "http://localhost:8000",
@@ -54,7 +55,7 @@ oauth.register(
     client_secret=settings.CLIENT_SECRET.get_secret_value(),
     server_metadata_url=CONF_URL,
     client_kwargs={
-        'scope': 'profile email',
+        'scope': 'profile openid email',
     }
 )
 
@@ -73,6 +74,7 @@ async def auth(request: Request):
     except OAuthError as error:
         return templates.TemplateResponse('error.html', {'request': request, 'error': error})
     user = token.get('userinfo')
+    print(user)
     if user:
         request.session['user'] = dict(user)
     return templates.TemplateResponse('home.html', {'request': request, 'user': user})
@@ -93,15 +95,15 @@ async def error():
 async def public(request: Request):
     user = request.session.get('user')
     show_auth = user is None
-    if user is not None and selected_class != "":
+    if user is not None and selected_class != "" and selected_class != "none":
         return RedirectResponse(url='/success')
     return templates.TemplateResponse('home.html', {'request': request, 'show_auth': show_auth})
 
 @app.post('/submit')
 async def public(request: Request, selected_class: Annotated[str, Form()]):
     user = request.session.get('user')
-
-    complete = selected_class != "" and user is not None
+    show_auth = user is None
+    complete = selected_class != "" and selected_class != "none" and user is not None
     if complete:
         inserted = db.insertUser(str(user['preferred_username']), str(selected_class))
         if inserted:
