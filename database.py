@@ -3,13 +3,13 @@ import sqlite3
 conn = sqlite3.connect('database.db')
 c=conn.cursor()
 
-c.execute("""CREATE TABLE IF NOT EXISTS users (preffered_username VARCHAR[255],chosenclass VARCHAR[255])""")
+c.execute("""CREATE TABLE IF NOT EXISTS users (preffered_username VARCHAR[255],chosenclass VARCHAR[255],email VARCHAR[255])""")
 conn.commit()
 
-def insertUser(username, classname):
+def insertUser(username, classname, email):
     if checkUser(username):
         return False
-    c.execute("""insert into users values (?,?)""",(username, classname))
+    c.execute("""insert into users values (?,?,?)""",(username, classname, email))
     conn.commit()
     print("User added")
     return True

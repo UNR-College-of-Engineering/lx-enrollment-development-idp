@@ -105,7 +105,7 @@ async def public(request: Request, selected_class: Annotated[str, Form()]):
     show_auth = user is None
     complete = selected_class != "" and selected_class != "none" and user is not None
     if complete:
-        inserted = db.insertUser(str(user['preferred_username']), str(selected_class))
+        inserted = db.insertUser(str(user['preferred_username']), str(selected_class), str(user['email']))
         if inserted:
             return templates.TemplateResponse('success.html', {'request': request, 'user': user})
         else:
